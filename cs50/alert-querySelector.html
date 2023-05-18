@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hello world</title>
+        <script>
+            let counter1 = 0
+            let counter2 = 0
+
+            function hello () {
+                const header = document.querySelector('h1');
+
+                alert("Hello, world!");
+
+                if (header.innerHTML === 'Hello!') {
+                    header.innerHTML = 'Goodbye, world!';
+                    counter1 ++;
+                    alert("Hello count: " + counter1);
+                }
+
+                else {
+                    header.innerHTML = 'Hello!';
+                    counter2 ++;
+                    alert("Goodbye count: " + counter2);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Hello!</h1>
+        <br><br>
+        <button onclick="hello()">Click Aqui</button>
+    </body>
+</html>

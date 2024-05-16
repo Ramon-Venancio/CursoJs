@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Operações</title>
+     <link rel="stylesheet" href="style.css">
+     <link rel="icon" href="../jump.png">
+     <script src="script.js"></script>
+</head>
+<body>
+     <fieldset>
+          <legend>Operação</legend>
+          <label for="">Digite o primeiro número</label>
+          <input type="number" name="numero1" id="numero1">
+
+          <label for="">Digite o segundo número</label>
+          <input type="number" name="numero2" id="numero2">
+
+          <button type="button" onclick="operacoes(parseFloat(document.getElementById('numero1').value), parseFloat(document.getElementById('numero2').value))">Calcular</button>
+     </fieldset>
+     
+     <p>A soma é: <span id="soma"></span></p>
+     <p>A subtração é: <span id="subtracao"></span></p>
+     <p>A multiplicação é: <span id="multiplicacao"></span></p>
+     <p>A divisão: <span id="divisao"></span></p>
+</body>
+</html>

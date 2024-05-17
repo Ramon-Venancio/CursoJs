@@ -1,6 +1,3 @@
-
-
-
 function par_ou_impar () {
      num = document.getElementById("numero").value;
 

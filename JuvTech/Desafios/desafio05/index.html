@@ -5,9 +5,18 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="style.css">
      <link rel="icon" href="../jump.png">
-     <title>Soma dos numeros positivos</title>
+     <title>Primo programador</title>
      <script src="script.js"></script>
 </head>
 <body>
+     <h1>Saber se é primo</h1>
+     <br>
+     <input type="number" id="numero">
+     <br>
+     <button type="button" 
+     onclick="document.getElementById('resultado').innerHTML = saber_primo(document.getElementById('numero').value)">Saber</button>
+
+     <p>Seu numero é primo? <br> <span id="resultado"></span></p>
+
 </body>
 </html>

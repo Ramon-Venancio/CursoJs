@@ -7,7 +7,7 @@
      <script src="script.js"></script>
 </head>
 <body>
-     <form action="" id="formulario">
+     <fieldset>
           <label for="nome">Digite seu nome:</label>
           <input type="text" name="nome" id="nome">
           <br>
@@ -17,17 +17,14 @@
           <br>
 
           <label for="idade">Digite sua idade:</label>
-          <input type="number" name="idade" id="sexo">
+          <input type="number" name="idade" id="idade">
           <br>
 
           <label for="profissão">Digite sua profissão:</label>
           <input type="text" name="profissao" id="profissao">
           <br>
 
-          <button type="submit">Cadastrar</button>
-     </form>
-     
-     <br>
-     <br>
+          <button type="submit" onclick="criarPessoa()">Cadastrar</button>
+     </fieldset>   
 </body>
 </html>

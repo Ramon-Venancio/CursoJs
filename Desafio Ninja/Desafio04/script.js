@@ -1,0 +1,1 @@
+// Crie uma função que receba uma string e retorne a mesma string com todas as suas vogais maiúsculas e as consoantes minúsculas. Utilize métodos de string para realizar a manipulação de caracteres de forma eficiente.

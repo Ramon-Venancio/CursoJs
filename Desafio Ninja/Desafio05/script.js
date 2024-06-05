@@ -1,0 +1,1 @@
+// Crie um aplicativo de gerenciamento de tarefas simples em JavaScript. O aplicativo deve permitir ao usuário adicionar, remover, editar e listar tarefas. Utilize arrays, objetos e métodos de armazenamento local (ou banco de dados, se preferir) para persistir as tarefas entre as sessões.

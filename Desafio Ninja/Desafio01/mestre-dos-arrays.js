@@ -21,16 +21,15 @@ btn.addEventListener('click',function(e) {
      p1 = new Produto(nome,preco,quantidade);
 
      produtos.push(p1)
+     console.log(produtos)
 })
 
 function gerar_recibo() {
      let total = 0;
-     document.write("+"+"-".repeat(20)+"+")
-     document.write("<br>")
-     document.write("|"+"   SEU RECIBO      "+"|")
-     document.write("<br>")
-     document.write("+"+"-".repeat(20)+"+")
+     console.log("+"+"-".repeat(20)+"+")
+     console.log("|"+"     SEU RECIBO     "+"|")
+     console.log("+"+"-".repeat(20)+"+")
      for (let i=0;i<produtos.length;i++) {
-          document.write("|"+" ".repeat(18)+"|")
+          console.log("|"+" ".repeat(20)+"|")
      }
 }

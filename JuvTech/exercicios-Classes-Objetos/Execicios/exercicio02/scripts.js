@@ -6,18 +6,18 @@ class Carrinho {
      }
 
      adicionarItens(nome,valor) {
-          this.itens.push([nome,valor]);
+          this.itens.push({nome,valor});
           this.quantidadeTotal += 1;
           this.valorTotal += valor;
      }
 
      removerItens(nome) {
           this.itens.forEach(item => {
-               if (item[0] == nome) {
+               if (item.nome == nome) {
                     let i = this.itens.indexOf(item);
                     
                     this.quantidadeTotal -= 1;
-                    this.valorTotal -= item[1] 
+                    this.valorTotal -= item.valor
                     this.itens.splice(i,1);
                }
           });

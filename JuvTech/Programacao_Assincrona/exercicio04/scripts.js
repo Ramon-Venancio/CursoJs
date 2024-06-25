@@ -6,6 +6,7 @@ const validarEmail = /\w+@\w+\.com/
 formulario.addEventListener('submit', (event) => {
      event.preventDefault();
      checkForm()
+     alert("Formulario enviado com sucesso!");
 })
 
 for (const input of inputs) {

@@ -2,8 +2,17 @@
 
 const images = document.querySelectorAll('img');
 
-console.log(images)
+function randomNumbersGenerator(max, quant) {
+     let numbers = []
 
-for (const image of images) {
-     console.log(image)
+     for (let i=0;i<quant;i++) {
+          numbers.push(numbers)
+     }
+
+     let resultados = []
+     while (resultados.length < quant) {
+          indexRandom = Math.floor(Math.random() * numbers.length);
+          
+     }
+     
 }

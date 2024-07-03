@@ -3,7 +3,11 @@
 const tagImagens = document.querySelectorAll('img')
 const botao = document.querySelector('button')
 let caminhosFormados = []
-let c = 0
+let escolhas = {
+     "primeira":"",
+     "segunda":""
+}
+
 
 function gerarNumerosAleatorios(max, quant) {
      let numerosPossiveis = []
@@ -24,6 +28,7 @@ function gerarNumerosAleatorios(max, quant) {
 }
 
 function gerarImages() {
+     caminhosFormados.length = 0
      const caminhoImagens = ["images/devagar_pai.jpg","images/manoel_gomes(caneta_azul).jpeg","images/passaro_cara_de_mal.jpg","images/ticole.jpg"]
      const numerosAletarios = gerarNumerosAleatorios(8,8)
      let count = 0
@@ -57,19 +62,38 @@ botao.addEventListener('click',() => {
 })
 
 for (imagem of tagImagens) {
-     imagem.addEventListener('click',() => {
-          c++
-          img = document.querySelector(`#img0${c}`)
-          console.log(img)
-          caminho= img.src.split("/").pop()
-          if(caminho="carta_costas.png" && caminhosFormados.length>0) {
-               for(key in tagImagens) {
-                    if (tagImagens[key].id==img.id) {
-                         console.log(tagImagens[key])
-                         img.src=caminhosFormados[key]
+     imagem.addEventListener('click', (event) => {
+          let imagemClicada = event.target;
+          const num = parseInt(imagemClicada.id.split("0").pop());
+          nomeImagem = imagemClicada.src.split("/").pop();
+
+          if (nomeImagem=="carta_costas.png" && caminhosFormados.length>0) {
+               imagemClicada.src = caminhosFormados[num-1];
+
+               if (escolhas.primeira) {
+                    escolhas.segunda = imagemClicada;
+
+                    if (escolhas.primeira.src==escolhas.segunda.src) {
+                         alert("ingual")
                     }
+                    else {
+                         alert("Diferente")
+                         imagemClicada.src = "images/carta_costas.png"
+                         for (imagem of tagImagens) {
+                              if (imagem.src==escolhas.segunda.src) {
+                                   imagem.src = "images/carta_costas.png"
+                              }
+                         }
+                         
+                    }
+                    escolhas.primeira = ""
+                    escolhas.segunda = ""
+               }
+               else if (!escolhas.primeira) {
+                    escolhas.primeira = imagemClicada;
                }
           }
-          console.log(c)
-     })
-}
+          console.log(escolhas.primeira);
+          console.log(escolhas.segunda);
+     });   
+} 

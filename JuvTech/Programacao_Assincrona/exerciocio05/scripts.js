@@ -74,26 +74,30 @@ for (imagem of tagImagens) {
                     escolhas.segunda = imagemClicada;
 
                     if (escolhas.primeira.src==escolhas.segunda.src) {
-                         alert("ingual")
+                         setTimeout(()=>{
+                              alert("ingual");
+                              escolhas.primeira = "";
+                              escolhas.segunda = "";
+                         },100)
                     }
                     else {
-                         alert("Diferente")
-                         imagemClicada.src = "images/carta_costas.png"
-                         for (imagem of tagImagens) {
-                              if (imagem.src==escolhas.segunda.src) {
-                                   imagem.src = "images/carta_costas.png"
+                         setTimeout(() => {
+                              imagemClicada.src = "images/carta_costas.png";
+                              for (imagem of tagImagens) {
+                                   if (imagem.src==escolhas.primeira.src) {
+                                        imagem.src = "images/carta_costas.png";
+                                   }
                               }
-                         }
-                         
+                              alert("Desingual");
+                              escolhas.primeira = "";
+                              escolhas.segunda = "";
+                         },100)
                     }
-                    escolhas.primeira = ""
-                    escolhas.segunda = ""
+                    
                }
                else if (!escolhas.primeira) {
                     escolhas.primeira = imagemClicada;
                }
           }
-          console.log(escolhas.primeira);
-          console.log(escolhas.segunda);
      });   
 } 

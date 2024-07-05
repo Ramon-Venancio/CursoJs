@@ -24,7 +24,6 @@ body {
      cursor: pointer;
 }
 
-button {
+#botao-comecar{
      margin: 40px 50%;
-     cursor: pointer;
 }

@@ -8,6 +8,20 @@ let escolhas = {
      "segunda":""
 }
 
+async function pegarCaminhos() {
+     try{
+          const response = await fetch('filePaths.json')
+          const filePaths = await response.json()
+
+          return filePaths
+     }
+     catch (error) {
+          console.error(`Erro ao carregar o JSON: ${error}`);
+
+          return [];
+     }
+}
+
 
 function gerarNumerosAleatorios(max, quant) {
      let numerosPossiveis = []
@@ -18,40 +32,38 @@ function gerarNumerosAleatorios(max, quant) {
 
      let resultados = []
      while (resultados.length < quant) {
-          indiceAleatorio = Math.floor(Math.random() * numerosPossiveis.length);
-          numeroSorteado = numerosPossiveis[indiceAleatorio]
-          resultados.push(numeroSorteado);
-          numerosPossiveis.splice(indiceAleatorio,1);
+          const indiceAleatorio = Math.floor(Math.random() * numerosPossiveis.length);
+          resultados.push(numerosPossiveis.splice(indiceAleatorio,1)[0]);
      }
 
-     return resultados
+     return resultados;
 }
 
-function gerarImages() {
+async function gerarImages() {
      caminhosFormados.length = 0
-     const caminhoImagens = ["images/devagar_pai.jpg","images/manoel_gomes(caneta_azul).jpeg","images/passaro_cara_de_mal.jpg","images/ticole.jpg"]
-     const numerosAletarios = gerarNumerosAleatorios(8,8)
-     let count = 0
-     let index=0
+     const caminhoImagens = await pegarCaminhos()
 
-     while(count!=2) {
-          for(caminho of caminhoImagens) {
-               const indexAleatorio = numerosAletarios[index]
-               tagImagens[indexAleatorio].src=caminho
-               index++
-          }
-          count++
+     if (caminhoImagens.length === 0) {
+          console.error("Nenhum caminho de imagem foi carregado.")
+          return;
      }
 
-     for(imagem of tagImagens) {
-          const nomeArquivo = imagem.src.split("/").pop()
-          caminho = `images/${nomeArquivo}`
-          caminhosFormados.push(caminho)
-     }
+     const numerosAletarios = gerarNumerosAleatorios(tagImagens.length,caminhoImagens.length)
+     
+     numerosAletarios.forEach((indexAleatorio, index) => {
+          if (index < caminhoImagens.length && indexAleatorio < tagImagens.length) {
+               tagImagens[indexAleatorio].src = caminhoImagens[index];
+           } else {
+               console.error('Índice fora do intervalo detectado');
+           }
+     })
+
+     caminhosFormados = Array.from(tagImagens, img => `images/${img.src.split("/").pop()}`)
 }
 
-botao.addEventListener('click',() => {
-     gerarImages()
+botao.addEventListener('click',async () => {
+     await gerarImages()
+     console.log(caminhosFormados)
      setTimeout(() => {
           const tagImagens = document.querySelectorAll('img');
 
@@ -61,7 +73,7 @@ botao.addEventListener('click',() => {
      },2000)
 })
 
-for (imagem of tagImagens) {
+tagImagens.forEach(imagem => {
      imagem.addEventListener('click', (event) => {
           let imagemClicada = event.target;
           const num = parseInt(imagemClicada.id.split("0").pop());
@@ -95,9 +107,9 @@ for (imagem of tagImagens) {
                     }
                     
                }
-               else if (!escolhas.primeira) {
+               else {
                     escolhas.primeira = imagemClicada;
                }
           }
      });   
-} 
+})

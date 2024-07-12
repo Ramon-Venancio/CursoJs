@@ -3,9 +3,11 @@
 const tagImagens = document.querySelectorAll('img')
 const botao = document.querySelector('button')
 let caminhosFormados = []
-let escolhas = {
-     "primeira":"",
-     "segunda":""
+let escolhas = {"primeira":"","segunda":""}
+const niveis = {
+     "facil":4,
+     "medio":6,
+     "dificil":8
 }
 
 async function pegarCaminhos() {
@@ -41,16 +43,28 @@ function gerarNumerosAleatorios(max, quant) {
 
 async function gerarImages() {
      caminhosFormados.length = 0
-     const caminhoImagens = await pegarCaminhos()
+     const todosCaminhoImagens = await pegarCaminhos()
+     let caminhoImagens = []
 
-     if (caminhoImagens.length === 0) {
+     if (todosCaminhoImagens.length === 0) {
           console.error("Nenhum caminho de imagem foi carregado.")
           return;
      }
+     const numerosAleatoriosCaminhos = gerarNumerosAleatorios(todosCaminhoImagens.length,4)
 
-     const numerosAletarios = gerarNumerosAleatorios(tagImagens.length,caminhoImagens.length)
+     numerosAleatoriosCaminhos.forEach((indexAleatorio,index) => {
+          caminhoImagens[index] = todosCaminhoImagens[indexAleatorio]
+     })
      
-     numerosAletarios.forEach((indexAleatorio, index) => {
+     caminhoImagens.forEach((caminho,index) => {
+          if (index<4) {
+               caminhoImagens.push(caminho)
+          }
+     })
+
+     const numerosAleatoriosImagens = gerarNumerosAleatorios(tagImagens.length,caminhoImagens.length)
+     
+     numerosAleatoriosImagens.forEach((indexAleatorio, index) => {
           if (index < caminhoImagens.length && indexAleatorio < tagImagens.length) {
                tagImagens[indexAleatorio].src = caminhoImagens[index];
            } else {

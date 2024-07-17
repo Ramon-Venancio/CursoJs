@@ -5,25 +5,24 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Jogo da memoria</title>
      <link rel="stylesheet" href="style.css">
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
-     <div class="nivel-selecao">
-          <label>
-              <input type="radio" name="nivel" value="facil" checked>
-              Fácil
-          </label>
-          <label>
-              <input type="radio" name="nivel" value="medio">
-              Médio
-          </label>
-          <label>
-              <input type="radio" name="nivel" value="dificil">
-              Difícil
-          </label>
-     </div>
-     <div>
+     <h1>Jogo da memoria</h1>
+     <section class="nivel-selecao">
+
+          <input type="radio" id="facil" name="nivel" value="facil" checked>
+          <label for="facil">Fácil</label>
+
+               
+          <input type="radio" id="medio" name="nivel" value="medio">
+          <label for="medio">Médio</label>
+
+
+          <input type="radio" id="dificil" name="nivel" value="dificil">
+          <label for="dificil">Difícil</label>
+     </section>
+     <button type="button" id="start">Começar</button>
+     <div class="tabuleiro">
           <section class="container-cards">
                <div><img id="img01" class="images" src="images/carta_costas.png" alt=""></div>
                <div><img id="img02" class="images" src="images/carta_costas.png" alt=""></div>
@@ -34,7 +33,6 @@
                <div><img id="img07" class="images" src="images/carta_costas.png" alt=""></div>
                <div><img id="img08" class="images" src="images/carta_costas.png" alt=""></div>
           </section>
-          <button type="button" id="botao-comecar" class="btn btn-secondary">Começar</button>
      </div>
 
      <script src="scripts.js"></script>

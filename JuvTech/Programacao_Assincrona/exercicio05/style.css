@@ -4,11 +4,15 @@
      box-sizing: border-box;
 }
 
+html, body {
+     min-height: 100vh;
+}
+
 body {
      display: flex;
      align-items: center;
      justify-content: center;
-     height: 100vh;
+     flex-direction: column;
 }
 
 .container-cards {
@@ -24,6 +28,46 @@ body {
      cursor: pointer;
 }
 
-#botao-comecar{
-     margin: 40px 50%;
+#start{
+     display: block;
+     margin: 20px auto;
+     padding: 10px 20px;
+     font-size: 16px;
+     font-weight: bold;
+     cursor: pointer;
+     border: 2px solid #333;
+     border-radius: 5px;
+     transition: background-color 0.3s;
+}
+
+#start:hover {
+     background-color: #333;
+     color: #fff;
+}
+
+.nivel-selecao {
+     display: flex;
+     margin: 20px;
+}
+
+.nivel-selecao input[type="radio"] {
+     display: none;
+}
+
+.nivel-selecao input[type="radio"] + label {
+     padding: 10px 20px;
+     border: 1px solid #333;
+     border-radius: 5px;
+     margin: 0 10px;
+     cursor: pointer;
+     transition: background-color 0.3s;
+}
+
+.nivel-selecao input[type="radio"]:checked + label {
+     background-color: #333;
+     color: #fff;
+}
+
+.nivel-selecao label p{
+     margin: 0;
 }

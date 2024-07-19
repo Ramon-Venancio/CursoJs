@@ -1,8 +1,7 @@
 // Crie um jogo da memória assíncrono utilizando JavaScript e HTML. O jogo deve carregar as imagens das cartas de forma assíncrona e revelar as cartas quando clicadas. Utilize setTimeout para simular o tempo de espera entre a revelação das cartas e async/await para gerenciar o fluxo assíncrono do jogo.
 
-
 /* Variaveis */
-const tagImagens = document.querySelectorAll('img')
+let tagImagens = document.querySelectorAll('img')
 const botao = document.querySelector('button')
 const nivelInputs = document.querySelectorAll('input[name="nivel"]')
 let caminhosFormados = []
@@ -50,7 +49,7 @@ async function gerarImages() {
      caminhosFormados.length = 0
      const todosCaminhoImagens = await pegarCaminhos()
      let caminhoImagens = []
-     const numerosAleatoriosCaminhos = gerarNumerosAleatorios(todosCaminhoImagens.length,4)
+     const numerosAleatoriosCaminhos = gerarNumerosAleatorios(todosCaminhoImagens.length,(tagImagens.length/2))
 
      /* Se o JSON estiver vazio ou a função pegarCaminhos() der erro */
      if (todosCaminhoImagens.length === 0) {
@@ -79,84 +78,92 @@ async function gerarImages() {
 
 /* Ação caso um botão de nível seja alterado */
 nivelInputs.forEach(input => {
+     input.addEventListener('click', (event) => {
+          inputClicado = event.target
+          tagImagens = document.querySelectorAll('img')
 
-     if (input.checked) {
-          if (tagImagens.length) {
-               tagImagens.forEach(imagem => {
-                    console.log(imagem)
-               })
+          if (inputClicado.checked) {
+               if (tagImagens.length) {
+                    tagImagens.forEach(imagem => {
+                         imagem.remove();
+                    })
+               }
+               
+               const nivel = input.value
+               let pai = document.querySelector('.tabuleiro')
+     
+               console.log(nivel)
+               
+               for (let i=0;i<niveis[nivel]*2;i++) {
+                    let imagemCriada = document.createElement("img");
+                    imagemCriada.src = "images/carta_costas.png";
+                    imagemCriada.id = `img${i}`
+                    imagemCriada.className = "images"
+     
+                    pai.appendChild(imagemCriada)
+               }
           }
-          
-          const nivel = input.value
-          let pai = document.querySelector('.tabuleiro')
-
-          console.log(nivel)
-          
-          for (let i=0;i<niveis[nivel]*2;i++) {
-               let imagemCriada = document.createElement("img");
-               imagemCriada.src = "images/carta_costas.png";
-               imagemCriada.id = `img0${i+1}`
-               imagemCriada.className = "images"
-
-               pai.appendChild(imagemCriada)
-          }
-     }
+     })
 })
 
-
-
 /* Ação caso o botão começar seja clicado*/
-botao.addEventListener('click',async () => {
-
+botao.addEventListener('click', async () => {
+     tagImagens = document.querySelectorAll('img')
      await gerarImages()
+
      console.log(caminhosFormados)
+
      setTimeout(() => {
-          const tagImagens = document.querySelectorAll('img');
+          tagImagens = document.querySelectorAll('img');
 
           for(imagem of tagImagens) {
                imagem.src = "images/carta_costas.png"
           }
      },2000)
+
+     clicarImagens();
 })
 
 /* Ação caso uma carta seja clicada*/
-tagImagens.forEach(imagem => {
-     imagem.addEventListener('click', (event) => {
-          let imagemClicada = event.target;
-          const num = parseInt(imagemClicada.id.split("0").pop());
-          nomeImagem = imagemClicada.src.split("/").pop();
+function clicarImagens() {
+     tagImagens.forEach(imagem => {
+          imagem.addEventListener('click', (event) => {
+               let imagemClicada = event.target;
+               const num = parseInt(imagemClicada.id.split("img").pop());
+               const nomeImagem = imagemClicada.src.split("/").pop();
 
-          if (nomeImagem=="carta_costas.png" && caminhosFormados.length>0) {
-               imagemClicada.src = caminhosFormados[num-1];
+               if (nomeImagem=="carta_costas.png" && caminhosFormados.length>0) {
+                    imagemClicada.src = caminhosFormados[num];
 
-               if (escolhas.primeira) {
-                    escolhas.segunda = imagemClicada;
+                    if (escolhas.primeira) {
+                         escolhas.segunda = imagemClicada;
 
-                    if (escolhas.primeira.src==escolhas.segunda.src) {
-                         setTimeout(()=>{
-                              alert("ingual");
-                              escolhas.primeira = "";
-                              escolhas.segunda = "";
-                         },100)
+                         if (escolhas.primeira.src==escolhas.segunda.src) {
+                              setTimeout(()=>{
+                                   alert("ingual");
+                                   escolhas.primeira = "";
+                                   escolhas.segunda = "";
+                              },100)
+                         }
+                         else {
+                              setTimeout(() => {
+                                   imagemClicada.src = "images/carta_costas.png";
+                                   for (imagem of tagImagens) {
+                                        if (imagem.src==escolhas.primeira.src) {
+                                             imagem.src = "images/carta_costas.png";
+                                        }
+                                   }
+                                   alert("Desingual");
+                                   escolhas.primeira = "";
+                                   escolhas.segunda = "";
+                              },100)
+                         }
+                         
                     }
                     else {
-                         setTimeout(() => {
-                              imagemClicada.src = "images/carta_costas.png";
-                              for (imagem of tagImagens) {
-                                   if (imagem.src==escolhas.primeira.src) {
-                                        imagem.src = "images/carta_costas.png";
-                                   }
-                              }
-                              alert("Desingual");
-                              escolhas.primeira = "";
-                              escolhas.segunda = "";
-                         },100)
+                         escolhas.primeira = imagemClicada;
                     }
-                    
                }
-               else {
-                    escolhas.primeira = imagemClicada;
-               }
-          }
-     });   
-})
+          });   
+     })
+}

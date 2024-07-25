@@ -11,6 +11,15 @@ const niveis = {
      "medio":6,
      "dificil":8
 }
+let jogoProgresso = false;
+let paresEncontrados = 0;
+
+/* Definir o botão de rádio 'facil' como clicado e marcado */
+document.addEventListener('DOMContentLoaded', () => {
+     const facilRadio = document.getElementById('facil');
+     facilRadio.checked = true;
+     facilRadio.click();
+});
 
 /* Função para pegar os caminhos no JSON */
 async function pegarCaminhos() {
@@ -108,6 +117,8 @@ nivelInputs.forEach(input => {
 
 /* Ação caso o botão começar seja clicado*/
 botao.addEventListener('click', async () => {
+     if (jogoProgresso) return;
+
      tagImagens = document.querySelectorAll('img')
      await gerarImages()
 
@@ -119,20 +130,23 @@ botao.addEventListener('click', async () => {
           for(imagem of tagImagens) {
                imagem.src = "images/carta_costas.png"
           }
-     },2000)
 
-     clicarImagens();
+          jogoProgresso = true;
+          clicarImagens();
+     },2000)
 })
 
 /* Ação caso uma carta seja clicada*/
 function clicarImagens() {
      tagImagens.forEach(imagem => {
           imagem.addEventListener('click', (event) => {
+               if (!jogoProgresso) return;
+
                let imagemClicada = event.target;
                const num = parseInt(imagemClicada.id.split("img").pop());
                const nomeImagem = imagemClicada.src.split("/").pop();
 
-               if (nomeImagem=="carta_costas.png" && caminhosFormados.length>0) {
+               if (nomeImagem=="carta_costas.png" && caminhosFormados.length > 0) {
                     imagemClicada.src = caminhosFormados[num];
 
                     if (escolhas.primeira) {
@@ -143,9 +157,16 @@ function clicarImagens() {
                                    alert("ingual");
                                    escolhas.primeira = "";
                                    escolhas.segunda = "";
+                                   paresEncontrados++;
+
+                                   if (paresEncontrados === tagImagens.length / 2) {
+                                        alert("Você completou o jogo!")
+                                        resetarJogo();
+                                   }
                               },100)
                          }
                          else {
+                              jogoProgresso = false;
                               setTimeout(() => {
                                    imagemClicada.src = "images/carta_costas.png";
                                    for (imagem of tagImagens) {
@@ -156,6 +177,7 @@ function clicarImagens() {
                                    alert("Desingual");
                                    escolhas.primeira = "";
                                    escolhas.segunda = "";
+                                   jogoProgresso = true;
                               },100)
                          }
                          
@@ -165,5 +187,15 @@ function clicarImagens() {
                     }
                }
           });   
+     })
+}
+
+/* Função para resetar o jogo */
+function resetarJogo() {
+     jogoProgresso = false;
+     escolhas = {"primeira":"", "segunda":""}
+     caminhosFormados = []
+     tagImagens.forEach(imagem => {
+          imagem.src = "images/carta_costas.png"
      })
 }

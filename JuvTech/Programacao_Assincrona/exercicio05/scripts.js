@@ -14,7 +14,17 @@ const niveis = {
 let jogoProgresso = false;
 let paresEncontrados = 0;
 
-/* Definir o botão de rádio 'facil' como clicado e marcado */
+/* Função para resetar o jogo */
+function resetarJogo() {
+     jogoProgresso = false;
+     escolhas = {"primeira":"", "segunda":""}
+     caminhosFormados = []
+     tagImagens.forEach(imagem => {
+          imagem.src = "images/carta_costas.png"
+     })
+}
+
+/* Definir o input rádio 'facil' como clicado e checado */
 document.addEventListener('DOMContentLoaded', () => {
      const facilRadio = document.getElementById('facil');
      facilRadio.checked = true;
@@ -190,12 +200,3 @@ function clicarImagens() {
      })
 }
 
-/* Função para resetar o jogo */
-function resetarJogo() {
-     jogoProgresso = false;
-     escolhas = {"primeira":"", "segunda":""}
-     caminhosFormados = []
-     tagImagens.forEach(imagem => {
-          imagem.src = "images/carta_costas.png"
-     })
-}

@@ -3,13 +3,13 @@ const axios = require('axios')
 
 axios.get(url).then(response => {
      const funcionarios = response.data
-     const chinesas = funcionarios.filter(function(funcionario) {
-          return funcionario.pais == 'China' && funcionario.genero == 'F'
-     })
-     
-     const chinesaMenorSalario =  chinesas.reduce(function(menor, atual) {
-          return atual.salario < menor.salario ? atual : menor
-     },chinesas[0])
+     const chinesaMenorSalario = funcionarios
+          .filter(function(funcionario) {
+               return funcionario.pais == 'China' && funcionario.genero == 'F'
+          })
+          .reduce(function(menor, atual) {
+               return atual.salario < menor.salario ? atual : menor
+          })
      
      console.log(chinesaMenorSalario)
 })

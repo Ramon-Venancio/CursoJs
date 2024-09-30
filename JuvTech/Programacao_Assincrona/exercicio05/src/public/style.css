@@ -6,6 +6,7 @@
 
 html, body {
      min-height: 100vh;
+     font-family: Arial, sans-serif;
 }
 
 body {
@@ -13,40 +14,56 @@ body {
      align-items: center;
      justify-content: center;
      flex-direction: column;
+     background-color: #f4f4f9;
+     color: #333;
 }
 
 .tabuleiro {
      display: grid;
-     grid-template-columns: repeat(4,1fr);
-     grid-gap: 20px;
-     max-width: 90%;
+     grid-template-columns: repeat(4, 1fr);
+     width: auto;
+     grid-column-gap: 60px;
+     max-height: 50vh;
+     margin-top: 20px;
 }
 
 .tabuleiro img {
-     width: 250px;
-     height: 250px;
+     width: 90%;
+     height: 100%;
+     max-height: calc(70vh / 2);
      cursor: pointer;
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tabuleiro img:hover {
+     transform: scale(1.05);
+     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 #start{
      display: block;
      margin: 20px auto;
-     padding: 10px 20px;
-     font-size: 16px;
+     padding: 12px 24px;
+     font-size: 18px;
      font-weight: bold;
      cursor: pointer;
-     border: 2px solid #333;
-     border-radius: 5px;
-     transition: background-color 0.3s;
+     background-color: #333;
+     color: #fff;
+     border: 2px solid transparent;
+     border-radius: 8px;
+     transition: background-color 0.3s, transform 0.2s;
 }
 
 #start:hover {
-     background-color: #333;
-     color: #fff;
+     background-color: #555;
+     transform: scale(1.05);
 }
 
 .nivel-selecao {
      display: flex;
+     justify-content: center;
      margin: 20px;
 }
 
@@ -56,18 +73,44 @@ body {
 
 .nivel-selecao input[type="radio"] + label {
      padding: 10px 20px;
-     border: 1px solid #333;
+     border: 2px solid #333;
      border-radius: 5px;
      margin: 0 10px;
      cursor: pointer;
-     transition: background-color 0.3s;
+     transition: background-color 0.3s, color 0.3s, transform 0.2s;
+     font-size: 16px;
+     font-weight: bold;
 }
 
 .nivel-selecao input[type="radio"]:checked + label {
      background-color: #333;
      color: #fff;
+     transform: scale(1.05);
 }
 
-.nivel-selecao label p{
-     margin: 0;
+@media (max-width: 768px) {
+     .tabuleiro {
+          grid-template-columns: repeat(4, 1fr);
+          grid-gap: 40px;
+     }
+
+     .tabuleiro img {
+          max-height: calc(70vh / 3);
+     }
+
+     #start {
+          font-size: 16px;
+          padding: 10px 20px;
+     }
+}
+
+@media (max-width: 480px) {
+     .tabuleiro img {
+          max-height: calc(70vh / 4);
+     }
+
+     .nivel-selecao input[type="radio"] + label {
+          padding: 8px 16px;
+          font-size: 14px;
+     }
 }
